@@ -34,3 +34,14 @@ It combines monitoring, logging, threat detection, policy enforcement, and chaos
 - **Slack** → Central place for team alerts  
 
 <img width="1780" height="1053" alt="architecture" src="https://github.com/user-attachments/assets/dae1dc3b-ec15-4960-b81b-d164effb34dd" />
+
+
+Important Note: The playbook installs Kubernetes on Ubuntu 24.04. Before execution:
+
+    Review and modify all inventory variables and file paths for your specific environment
+
+    Validate the playbook in a staging or development environment before applying to production systems
+    
+Usage:
+  ansible-playbook -i inventory.ini kubernetes-setup.yml
+
