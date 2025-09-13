@@ -1,0 +1,34 @@
+trivy image nginx
+helm upgrade trivy-operator aqua/trivy-operator \
+  --namespace trivy-system \
+  --set="trivy.builtinPolicies.bundleRepository=ghcr.io/aquasecurity/trivy-checks" \
+  --set="trivy.builtinPolicies.bundleTag=1" \
+  --set="trivy.skipPolicyUpdate=true" \
+  --set="trivy.ignoreUnfixed=true" \
+  --reuse-values
+  
+  
+   kubectl rollout restart deployment trivy-operator -n trivy-system
+   
+helm upgrade trivy-operator aqua/trivy-operator \
+  --namespace trivy-system \
+  --create-namespace \
+  --version 0.28.1 \
+  --set service.type=NodePort \
+  --set service.nodePort=30089
+
+
+
+helm upgrade trivy-operator aqua/trivy-operator -n trivy-system \
+  --set="trivy.skipPolicyUpdate=true" \
+  --set="trivy.builtinPolicies.bundleRepository=ghcr.io/aquasecurity/trivy-checks" \
+  --set="trivy.builtinPolicies.bundleTag=1" \
+  --set="trivy.skipPolicyUpdate=true" \
+  --set="trivy.ignoreUnfixed=true" \
+  --set="operator.resources.requests.memory=256Mi" \
+  --set="operator.resources.requests.cpu=250m" \
+  --set="trivy.resources.requests.memory=512Mi" \
+  --set="trivy.resources.requests.cpu=500m" \
+  --reuse-values
+
+

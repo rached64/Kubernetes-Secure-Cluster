@@ -1,0 +1,49 @@
+kubectl -n kube-system get configmap coredns -o yaml
+apiVersion: v1
+data:
+  Corefile: |
+    .:53 {
+      errors
+      health {
+        lameduck 5s
+      }
+      ready
+      kubernetes cluster.local in-addr.arpa ip6.arpa {
+        pods insecure
+        fallthrough in-addr.arpa ip6.arpa
+      }
+      forward . 8.8.8.8 8.8.4.4
+      loop
+      reload
+      loadbalance
+    }
+kind: ConfigMap
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","data":{"Corefile":".:53 {\n  errors\n  health {\n    lameduck 5s\n  }\n  ready\n  kubernetes cluster.local in-addr.arpa ip6.arpa {\n    pods insecure\n    fallthrough in-addr.arpa ip6.arpa\n  }\n  forward . 8.8.8.8 8.8.4.4\n  loop\n  reload\n  loadbalance\n}\n"},"kind":"ConfigMap","metadata":{"annotations":{},"name":"coredns","namespace":"kube-system"}}
+  creationTimestamp: "2025-04-09T18:21:12Z"
+  name: coredns
+  namespace: kube-system
+  resourceVersion: "918142"
+  uid: bd1009d8-9924-4cf3-9bae-0f4cf9db5b18
+
+
+gcloud compute firewall-rules create gke-opentelemetry-webhook \ 
+--action ALLOW \ 
+--direction INGRESS \ 
+--source-ranges 172.16.0.16/28 \ 
+--rules tcp:9443 \ 
+--target-tags gke-cluster-19216119-node
+
+
+kubectl run network-check --rm -it --image=nicolaka/netshoot -- bash
+# Inside the container:
+curl -v https://opentelemetry-operator-webhook-service.opentelemetry-operator-system.svc:8443
+curl -v https://cert-manager-webhook.cert-manager.svc:443
+
+sudo mkdir -p /etc/systemd/resolved.conf.d/
+echo -e "[Resolve]\nDNS=192.168.122.1 8.8.8.8\nDomains=cluster.local" | sudo tee /etc/systemd/resolved.conf.d/k8s.conf
+sudo systemctl restart systemd-resolved
+
+
