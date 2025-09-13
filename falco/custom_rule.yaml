@@ -1,0 +1,52 @@
+# Ouverture d’un fichier sensible comme /etc/shadow
+- rule: Read sensitive file untrusted
+  desc: A sensitive file was read by an untrusted user
+  condition: open_read and fd.name in (/etc/shadow, /etc/sudoers) and not user.uid=0
+  output: "Sensitive file read: %fd.name by user=%user.name (command=%proc.cmdline)"
+  priority: WARNING
+  tags: [filesystem, sensitive]
+
+# Utilisation de netcat, nmap ou équivalents
+- rule: Netcat or Nmap Launched
+  desc: Detect use of common reconnaissance tools inside container
+  condition: container and proc.name in (ncat, nc, netcat, nmap)
+  output: "Recon tool used in container (tool=%proc.name user=%user.name command=%proc.cmdline)"
+  priority: WARNING
+  tags: [network, container, recon]
+
+# Écriture d’un fichier exécutable dans /tmp
+- rule: Write binary to /tmp
+  desc: Detect creation of potentially malicious binaries in /tmp
+  condition: write and fd.name startswith /tmp and evt.type in (open, creat) and fd.name endswith (".sh", ".bin", ".exe", ".elf>
+  output: "Binary written to /tmp (file=%fd.name user=%user.name cmd=%proc.cmdline)"
+  priority: WARNING
+  tags: [filesystem, malware, tmp]
+
+#Téléchargement d’un fichier via curl ou wget
+- rule: Suspicious File Download
+  desc: Detect use of curl or wget to download files (common for attackers)
+  condition: spawned_process and proc.name in (curl, wget)
+  output: Suspicious download command run by %user.name (cmdline=%proc.cmdline)
+  priority: WARNING
+  tags: [network, suspicious]
+
+# Installation de package avec apt, pip, etc.
+- rule: Package Manager Usage
+  desc: Detect use of apt, pip, npm (may indicate manual install or exploitation)
+  condition: spawned_process and proc.name in (apt, apt-get, pip, npm)
+  output: Package installation command used by %user.name (cmdline=%proc.cmdline)
+  priority: NOTICE
+  tags: [software-management, suspicious]
+
+# Container Crashed
+- rule: Container Crashed
+  desc: A container in a pod has crashed (exit with signal or abnormal code)
+  condition: >
+    evt.type = "exit"
+    and container.id != host
+    and (proc.exepath exists)
+    and (evt.exitcode < 0 or evt.exitcode > 128)
+  output: >
+    🚨 Container crash detected (exit code=%evt.exitcode) | proc=%proc.name pod=%k8s.pod.name ns=%k8s.ns.name container=%container.name image=%container.image.repository
+  priority: ERROR
+  tags: [container, crash, k8s]

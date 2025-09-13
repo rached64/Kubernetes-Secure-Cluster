@@ -1,0 +1,19 @@
+apiVersion: kyverno.io/v1
+kind: Policy
+metadata:
+  name: no-latest-tag
+  namespace: production
+spec:
+  validationFailureAction: Enforce
+  rules:
+  - name: require-non-latest-tag
+    match:
+      resources:
+        kinds:
+        - Pod
+    validate:
+      message: "L'utilisation du tag 'latest' est interdite pour les images de conteneur."
+      pattern:
+        spec:
+          containers:
+          - image: "!*:latest"

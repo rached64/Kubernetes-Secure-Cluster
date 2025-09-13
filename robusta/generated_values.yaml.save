@@ -1,0 +1,107 @@
+# This file contains API keys. To load them from secrets, refer to https://docs.robusta.dev/master/setup-robusta/configuration-secrets.html
+
+clusterName: k8s-cluster # NOTE - adjust the clusterName when adding additional clusters
+globalConfig:
+  signing_key: f2ae8b17-4f28-4cd3-a2ea-109447248901
+  account_id: 8a4a1d18-b770-4a36-b804-ee34e5687177
+sinksConfig:
+  - robusta_sink:
+      name: robusta_ui_sink
+      token: eyJhY2NvdW50X2lkIjogIjhhNGExZDE4LWI3NzAtNGEzNi1iODA0LWVlMzRlNTY4NzE3NyIsICJhcGlfa2V5IjogImV5SmhiR2NpT2lKSVV6STFOaUlzSW5SNWNDSTZJa3BYVkNKOS5leUp5YjJ4bElqb2lZVzV2YmlJc0ltbGhkQ0k2TVRZeU5ERTNNalF5TkN3aVpYaHdJam94T1RNNU56UTROREkwZlEuaFJMdjZQQW54MWNhdkR3bC1pWXlnQXJINHFBMERWSFluckQ3MUFzcXFQdyIsICJzdG9yZV91cmwiOiAiaHR0cHM6Ly9zcC5yb2J1c3RhLmRldiIsICJlbWFpbCI6ICJhcGl1c2VyLXJhY2hlZC0xMzc4OEByb2J1c3RhLmRldiIsICJwYXNzd29yZCI6ICIxMjJhNmExMS0xMTY2LTRhMjAtYWE5ZS03MGE3Zjk0NDgxYWQifQ==
+  - slack_sink:
+      name: main_slack_sink
+      slack_channel: robusta_alert
+      api_key: xoxb-8809852014485-8878455778130-YDEFxHRu2u9X0K55m8Y7gxAr
+enablePrometheusStack: true
+enablePlatformPlaybooks: true
+runner:
+  sendAdditionalTelemetry: true
+enableHolmesGPT: true
+enabledManagedConfiguration: true
+holmes:
+  additionalEnvVars:
+    - name: ROBUSTA_AI
+      value: "true"
+  resources:
+    requests:
+      memory: 512Mi
+isSmallCluster: true
+
+customPlaybooks:
+- triggers:
+    - on_prometheus_alert:
+        alert_name: "PodWritingToBin"
+  actions:
+    - delete_pod: {}   # 🚨 Kill the malicious pod
+    - add_labels:
+        labels:
+          quarantine: "true"
+    - send_slack:      # Send notification with context
+        title: " Suspicious Pod Deleted"
+        message: |
+          Robusta auto-deleted pod writing to /bin
+          Namespace: {namespace}
+          Pod: {pod}
+          Alert: {alert_name}
+
+- actions:
+  - delete_pod: {}
+  triggers:
+  - on_pod_create: {}
+
+- actions:
+  - node_health_watcher: {}
+  triggers:
+  - on_node_all_changes: {}
+
+#Quarantaine automatique si anomalie détectée par Falco
+- triggers:
+    - on_prometheus_alert:
+        alert_name: "FalcoSuspiciousActivity"
+  actions:
+    - add_labels:
+        labels:
+          quarantined: "true"
+    - delete_pod: {}
+    - send_slack:
+        title: "🚨 Falco Alert - Pod Quarantined"
+        message: |
+          Pod {pod} in {namespace} was deleted due to suspicious activity detected by Falco.
+
+#3. Suppression automatique si image vulnérable détectée par Trivy
+- triggers:
+    - on_prometheus_alert:
+        alert_name: "TrivyHighSeverityVuln"
+  actions:
+    - delete_pod: {}
+    - send_slack:
+        title: "⚠️ Vulnerable Pod Removed"
+        message: |
+          Pod {pod} using vulnerable image was removed.
+          Namespace: {namespace}
+          Alert: {alert_name}
+#4. Notification si un namespace consomme trop de ressources
+- triggers:
+    - on_prometheus_alert:
+        alert_name: "NamespaceHighCPUUsage"
+  actions:
+    - send_slack:
+        title: "⚡ High CPU usage detected"
+        message: |
+          Namespace {namespace} is consuming too much CPU.
+#5. Isoler un Pod dans un namespace “quarantine” au lieu de le supprimer
+- triggers:
+    - on_pod_create: {}
+  actions:
+    - add_labels:
+        labels:
+          quarantine: "true"
+    - send_slack:
+        title: "🚨 Pod Isolated"
+        message: |
+          Pod {pod} in {namespace} was automatically isolated (moved to quarantine namespace).
+
+
+
+
+

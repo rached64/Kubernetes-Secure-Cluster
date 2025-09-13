@@ -1,0 +1,19 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: disallow-root-user
+spec:
+  validationFailureAction: enforce
+  rules:
+    - name: validate-run-as-non-root
+      match:
+        resources:
+          kinds:
+            - Pod
+      validate:
+        message: "Running as root user (UID 0) is not allowed."
+        pattern:
+          spec:
+            containers:
+              - =(securityContext):
+                  =(runAsUser): ">0"

@@ -1,0 +1,29 @@
+prometheus:
+  prometheusSpec:
+    serviceMonitorSelectorNilUsesHelmValues: false
+    serviceMonitorSelector: {}
+    serviceMonitorNamespaceSelector: {}
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 10Gi  # Adjust size as needed
+
+remote_write:
+  - url: http://localhost:5080/api/default/prometheus/api/v1/write
+    queue_config:
+      max_samples_per_send: 10000
+    basic_auth:
+      username: root@example.com
+      password: UBgsNwcdTjd9lgiv
+
+grafana:
+  sidecar:
+    datasources:
+      defaultDatasourceEnabled: true
+  additionalDataSources:
+    - name: Loki
+      type: loki
+      url: http://loki-loki-distributed-query-frontend.monitoring:3100

@@ -1,0 +1,87 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"kyverno.io/v1","kind":"ClusterPolicy","metadata":{"annotations":{},"name":"disallow-root-user"},"spec":{"rules":[{"match":{"resources":{"kinds":["Pod"]}},"name":"validate-run-as-non-root","validate":{"message":"Running as root user (UID 0) is not allowed.","pattern":{"spec":{"containers":[{"=(securityContext)":{"=(runAsUser)":"\u003e0"}}]}}}}],"validationFailureAction":"enforce"}}
+  creationTimestamp: "2025-07-22T16:21:01Z"
+  generation: 1
+  name: disallow-root-user
+  resourceVersion: "1694692"
+  uid: 3edba6b6-0297-40bc-b39a-94ba594ea60c
+spec:
+  admission: true
+  background: true
+  emitWarning: false
+  rules:
+  - match:
+      resources:
+        kinds:
+        - Pod
+    name: validate-run-as-non-root
+    skipBackgroundRequests: true
+    validate:
+      allowExistingViolations: true
+      message: Running as root user (UID 0) is not allowed.
+      pattern:
+        spec:
+          containers:
+          - =(securityContext):
+              =(runAsUser): '>0'
+  validationFailureAction: enforce
+status:
+  autogen:
+    rules:
+    - match:
+        resources:
+          kinds:
+          - DaemonSet
+          - Deployment
+          - Job
+          - ReplicaSet
+          - ReplicationController
+          - StatefulSet
+      name: autogen-validate-run-as-non-root
+      skipBackgroundRequests: true
+      validate:
+        allowExistingViolations: true
+        message: Running as root user (UID 0) is not allowed.
+        pattern:
+          spec:
+            template:
+              spec:
+                containers:
+                - =(securityContext):
+                    =(runAsUser): '>0'
+    - match:
+        resources:
+          kinds:
+          - CronJob
+      name: autogen-cronjob-validate-run-as-non-root
+      skipBackgroundRequests: true
+      validate:
+        allowExistingViolations: true
+        message: Running as root user (UID 0) is not allowed.
+        pattern:
+          spec:
+            jobTemplate:
+              spec:
+                template:
+                  spec:
+                    containers:
+                    - =(securityContext):
+                        =(runAsUser): '>0'
+  conditions:
+  - lastTransitionTime: "2025-08-28T16:56:11Z"
+    message: Ready
+    reason: Succeeded
+    status: "True"
+    type: Ready
+  rulecount:
+    generate: 0
+    mutate: 0
+    validate: 1
+    verifyimages: 0
+  validatingadmissionpolicy:
+    generated: false
+    message: ""

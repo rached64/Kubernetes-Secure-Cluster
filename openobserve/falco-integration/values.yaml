@@ -1,0 +1,16 @@
+falco:
+  json_output: true
+
+  metrics:
+    enabled: true
+    interval: 1h
+    output_rule: true
+    # output_file: /tmp/falco_stats.jsonl
+    rules_counters_enabled: true
+    resource_utilization_enabled: true
+    state_counters_enabled: true
+    kernel_event_counters_enabled: true
+    libbpf_stats_enabled: true
+    convert_memory_to_mb: true
+    include_empty_values: false
+    kernel_event_counters_per_cpu_enabled: false

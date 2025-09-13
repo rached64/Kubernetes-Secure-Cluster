@@ -1,0 +1,14 @@
+kind: PodChaos
+apiVersion: chaos-mesh.org/v1alpha1
+metadata:
+  namespace: test-app
+  name: test-pod
+spec:
+  selector:
+    namespaces:
+      - test-app
+    labelSelectors:
+      app: vuln
+  mode: all
+  action: pod-failure
+  duration: 10s

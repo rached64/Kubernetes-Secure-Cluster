@@ -1,0 +1,614 @@
+apiVersion: v1
+items:
+- apiVersion: admissionregistration.k8s.io/v1
+  kind: ValidatingWebhookConfiguration
+  metadata:
+    annotations:
+      cert-manager.io/inject-ca-from-secret: cert-manager/cert-manager-webhook-ca
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"admissionregistration.k8s.io/v1","kind":"ValidatingWebhookConfiguration","metadata":{"annotations":{"cert-manager.io/inject-ca-from-secret":"cert-manager/cert-manager-webhook-ca"},"labels":{"app":"webhook","app.kubernetes.io/component":"webhook","app.kubernetes.io/instance":"cert-manager","app.kubernetes.io/name":"webhook","app.kubernetes.io/version":"v1.13.1"},"name":"cert-manager-webhook"},"webhooks":[{"admissionReviewVersions":["v1"],"clientConfig":{"service":{"name":"cert-manager-webhook","namespace":"cert-manager","path":"/validate"}},"failurePolicy":"Fail","matchPolicy":"Equivalent","name":"webhook.cert-manager.io","namespaceSelector":{"matchExpressions":[{"key":"cert-manager.io/disable-validation","operator":"NotIn","values":["true"]}]},"rules":[{"apiGroups":["cert-manager.io","acme.cert-manager.io"],"apiVersions":["v1"],"operations":["CREATE","UPDATE"],"resources":["*/*"]}],"sideEffects":"None","timeoutSeconds":10}]}
+    creationTimestamp: "2025-07-26T17:23:26Z"
+    generation: 2
+    labels:
+      app: webhook
+      app.kubernetes.io/component: webhook
+      app.kubernetes.io/instance: cert-manager
+      app.kubernetes.io/name: webhook
+      app.kubernetes.io/version: v1.13.1
+    name: cert-manager-webhook
+    resourceVersion: "311252"
+    uid: a7c5a934-0f2a-46ec-ac57-7241598b3bc5
+  webhooks:
+  - admissionReviewVersions:
+    - v1
+    clientConfig:
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUJ3RENDQVVlZ0F3SUJBZ0lRZDVFdFpUNGNRNm5TMlBxWEFxdUE1akFLQmdncWhrak9QUVFEQXpBaU1TQXcKSGdZRFZRUURFeGRqWlhKMExXMWhibUZuWlhJdGQyVmlhRzl2YXkxallUQWVGdzB5TlRBM01qWXhOekkxTURoYQpGdzB5TmpBM01qWXhOekkxTURoYU1DSXhJREFlQmdOVkJBTVRGMk5sY25RdGJXRnVZV2RsY2kxM1pXSm9iMjlyCkxXTmhNSFl3RUFZSEtvWkl6ajBDQVFZRks0RUVBQ0lEWWdBRUxZZ0JjQ3ViSlczeUFWMHJxQS9TTGxkQ3pwM00KY0oyQ3RtMi9IbldwYXN6YUU3WXk1VmN0TTZJWjYrQi8zTnpCZjNjS3graE5oSzEvZnVGU0o3QTdCSFZDTjkrcgpCMDdZUEhmZFhIaExqNmJVYjk3c2NSTFNySStQdVZKSC82K3RvMEl3UURBT0JnTlZIUThCQWY4RUJBTUNBcVF3CkR3WURWUjBUQVFIL0JBVXdBd0VCL3pBZEJnTlZIUTRFRmdRVU5NZWRrM2F6d3lZeHVUbG80M01nWFp5c0VZQXcKQ2dZSUtvWkl6ajBFQXdNRFp3QXdaQUl3VFdFZmRTK0lncHpHYWlCamZZckZhNE16eHltZjN1bUNVQnMzMWg0WgpBZXpJeWJoQWoxTTNqbDQyKzNhUk9lZG5BakFGckcxaTlKQzg5L21TTGlVNjl3dnVWM2kwdXljNDQzR3EwakRBCnFmemlsUkxqMFErdDY2QzZZeUlOM0Jlb0d6ST0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=
+      service:
+        name: cert-manager-webhook
+        namespace: cert-manager
+        path: /validate
+        port: 443
+    failurePolicy: Fail
+    matchPolicy: Equivalent
+    name: webhook.cert-manager.io
+    namespaceSelector:
+      matchExpressions:
+      - key: cert-manager.io/disable-validation
+        operator: NotIn
+        values:
+        - "true"
+    objectSelector: {}
+    rules:
+    - apiGroups:
+      - cert-manager.io
+      - acme.cert-manager.io
+      apiVersions:
+      - v1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - '*/*'
+      scope: '*'
+    sideEffects: None
+    timeoutSeconds: 10
+- apiVersion: admissionregistration.k8s.io/v1
+  kind: ValidatingWebhookConfiguration
+  metadata:
+    annotations:
+      admissions.enforcer/disabled: "true"
+    creationTimestamp: "2025-07-22T16:20:13Z"
+    generation: 1
+    labels:
+      webhook.kyverno.io/managed-by: kyverno
+    name: kyverno-cel-exception-validating-webhook-cfg
+    resourceVersion: "34582"
+    uid: e8a8bec4-602b-49d3-a2d9-353e02173ed4
+  webhooks:
+  - admissionReviewVersions:
+    - v1
+    clientConfig:
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM3VENDQWRXZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFZTVJZd0ZBWURWUVFEREEwcUxtdDUKZG1WeWJtOHVjM1pqTUI0WERUSTFNRGN5TWpFMU1qQXhNMW9YRFRJMk1EY3lNakUyTWpBeE0xb3dHREVXTUJRRwpBMVVFQXd3TktpNXJlWFpsY201dkxuTjJZekNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DCmdnRUJBT1NTaU5EZ2NHdFB0STNvS2tlTys5SXh4RGVZYWNRWGkySVhMNHpKWi9Gc2E5QVdxZHlZb2pBWTJmMXYKQ2g2TDZXN3pTNStqdUtJajNxUkxkdkhwWk9WaHNUV1pNbHR5V0c0QjVUNzV3WXdQSHlyaUl6R2JkK05ncUR1bAo0STZKeTJ1YlhvWmlOdmFCNVpKTzhsSk9lSzh0eS9iSkkzbGExbWZsN1VlWFNGN0ZMZ2VSV3hWUExudjZ6bTA3CkZiZnFSV3BpSW94OFdKeXZDRVZ6ZVkzN29lTi9ZUU9KOVAyMnR6TkNmNXhkK2ZJYzYwb2VqQVpFdnZtTTlZZVIKWDkxN3c3QXl1UDRoVS9HRTlYWUN6emVIOW1BWTZhNDJMWE9SN1VYVXBKSDlYQ2JodW1zOElWQngvSkx4Vjk5UQpaL3ZZUE85cmdFelF5Q2thL2xiOXUvdHdPSjBDQXdFQUFhTkNNRUF3RGdZRFZSMFBBUUgvQkFRREFnS2tNQThHCkExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRkRSRFNZT1l4cE40RDVEWndvWHJ1NWJjdVFFak1BMEcKQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUE4L1ZiVnhNcWk5cWszSGVwMTlmc3ZKbWdoT0h3NW00NGVGQ2dmOEFLbgp3ZE85NGdRalV0VDJZb0pGVGNRQVJtTGsvSk53VVd2ZlFlSUQvRjQ5eVRCRFpsbDRxZFBlSUVsUWZQd3BXL3dtCnhTL2x5Z2pBM1d1ckQzdlQrOFRUUE9yenowYTB0Y1pkcWhsTE5uMVhuWlpsOExrUXJKQUlWdjdiY1ZNVVMvNHEKZTVaZ0wrN0xnRWpRT1JOQ2VvMytwYTlSekV6dytHK3RFblpLcThTQ1kzd1lVN0VtQXFCOHVnL3V4dmk1Y0VNaQpTMTZWZ3FNWWNpeTNxWjhXWEozc2FIMFZNcm9OZnY1WW95dmlGbWFxOVBaNW0xajNSTEtFNUN3WmNoaTl3K0JMCjZjdXdYaWJhUm4waWFLQ1Z1M1RCcThNOVdpQnkxM1RWT1hiRHlveEU3VCtaCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+      service:
+        name: kyverno-svc
+        namespace: kyverno
+        path: /celexception/validate
+        port: 443
+    failurePolicy: Fail
+    matchPolicy: Equivalent
+    name: kyverno-svc.kyverno.svc
+    namespaceSelector: {}
+    objectSelector: {}
+    rules:
+    - apiGroups:
+      - policies.kyverno.io
+      apiVersions:
+      - v1alpha1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - policyexceptions
+      scope: '*'
+    sideEffects: None
+    timeoutSeconds: 10
+- apiVersion: admissionregistration.k8s.io/v1
+  kind: ValidatingWebhookConfiguration
+  metadata:
+    annotations:
+      admissions.enforcer/disabled: "true"
+    creationTimestamp: "2025-07-22T16:19:17Z"
+    generation: 1
+    labels:
+      webhook.kyverno.io/managed-by: kyverno
+    name: kyverno-cleanup-validating-webhook-cfg
+    resourceVersion: "34391"
+    uid: fdaa9109-eb64-447a-a30d-28fcc34594ea
+  webhooks:
+  - admissionReviewVersions:
+    - v1
+    clientConfig:
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM3VENDQWRXZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFZTVJZd0ZBWURWUVFEREEwcUxtdDUKZG1WeWJtOHVjM1pqTUI0WERUSTFNRGN5TWpFMU1Ua3hOMW9YRFRJMk1EY3lNakUyTVRreE4xb3dHREVXTUJRRwpBMVVFQXd3TktpNXJlWFpsY201dkxuTjJZekNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DCmdnRUJBTGFsZzVNcDR0QmlNamc1b0hRb2NSUEVrdStCZ21kUjRNcEE4MEVYRXdsZWFUWTdEdkZyYnh6SjZZNEQKcGZwYUVySVFqTkpzQllzSkFOOTNlNjZmajZ4V0V3QjhDc0J2WWxVQTVqdkQ2STd6ZDhCZVFVTUR3SC9XWmVXeQp3aHNXeGJaeWREQzV0eXptRWNOL0g5OFhPZUFlN0NPZ3RtRS9nY3p1OFY0aWJndWhsbGhCS0IvRHlvcWNXbkF0Ck1VMjRWNm1uRlFuWFFBMFFpeXZSNnZJSHNGS0ZGV3BOR1lCQW9UTk55VGk5SlFoSHAra1RpZG9lTWZVYnVOVnQKNEp6YTNOWVIyYkJJcDd4TXRCdGJlNUtCamJTS0ZBZlBiUFFaUFJVallYOW9zM3RReE5LdG5QVXNQL0RqVk53cQp6dHZxc3p0bUFYN1RKS0gvTGlMakFHMFUrRzhDQXdFQUFhTkNNRUF3RGdZRFZSMFBBUUgvQkFRREFnS2tNQThHCkExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRkpqU25ZTW9QV3dVaGpheHZORXdTNXVoQUxlaE1BMEcKQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUJHaTUzaUtnQ0tIc3JrSVF5eGY3MUJBaGk5dGFkc1NnbjBVMFY1NkMvbgo2bE41ZGxrbkt2RkVzTkhuN2wyVGNrUjdsY3RKS1lTSUo4QTgzQmpKdE8yZW5BU0dCN0NHa0lmK1hLUkZvalVKCnRDY3Y5L2FBMGxDTmE2czdPWSt0djBCUUpJWWl4MzhqNy9qVXhtcE56dysvYy9lMCtCS1JjNEJBdEd6K0xmRWUKMFREN2cvbUpxVGJOcUdTLzQ1UG9FTmx4SStpVWEzMFhBbFRRQUdCVStsUFRhbVpwUHRycjdEdVh4OXYrdHVPdQpZWFhFbGQwb2NzQ2U0SXNBV1dsbTdTVzFWODZUcmorMVE0ZFhrR3N1cFF3UFROVVJqUzZYVXB1ZEJpU2djTW9aClY4THA2bjg3SVNTY1BOMzB3REJmZ0xhcWNMVnRqVnd0Q2JnRW1iSFlyWlk5Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+      service:
+        name: kyverno-cleanup-controller
+        namespace: kyverno
+        path: /validate
+        port: 443
+    failurePolicy: Fail
+    matchPolicy: Equivalent
+    name: kyverno-cleanup-controller.kyverno.svc
+    namespaceSelector: {}
+    objectSelector: {}
+    rules:
+    - apiGroups:
+      - kyverno.io
+      apiVersions:
+      - v2beta1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - cleanuppolicies/*
+      - clustercleanuppolicies/*
+      scope: '*'
+    sideEffects: None
+    timeoutSeconds: 10
+- apiVersion: admissionregistration.k8s.io/v1
+  kind: ValidatingWebhookConfiguration
+  metadata:
+    annotations:
+      admissions.enforcer/disabled: "true"
+    creationTimestamp: "2025-07-22T16:20:13Z"
+    generation: 1
+    labels:
+      webhook.kyverno.io/managed-by: kyverno
+    name: kyverno-exception-validating-webhook-cfg
+    resourceVersion: "34581"
+    uid: 97de52b2-5c06-4a4b-99ea-9b314f3a2357
+  webhooks:
+  - admissionReviewVersions:
+    - v1
+    clientConfig:
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM3VENDQWRXZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFZTVJZd0ZBWURWUVFEREEwcUxtdDUKZG1WeWJtOHVjM1pqTUI0WERUSTFNRGN5TWpFMU1qQXhNMW9YRFRJMk1EY3lNakUyTWpBeE0xb3dHREVXTUJRRwpBMVVFQXd3TktpNXJlWFpsY201dkxuTjJZekNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DCmdnRUJBT1NTaU5EZ2NHdFB0STNvS2tlTys5SXh4RGVZYWNRWGkySVhMNHpKWi9Gc2E5QVdxZHlZb2pBWTJmMXYKQ2g2TDZXN3pTNStqdUtJajNxUkxkdkhwWk9WaHNUV1pNbHR5V0c0QjVUNzV3WXdQSHlyaUl6R2JkK05ncUR1bAo0STZKeTJ1YlhvWmlOdmFCNVpKTzhsSk9lSzh0eS9iSkkzbGExbWZsN1VlWFNGN0ZMZ2VSV3hWUExudjZ6bTA3CkZiZnFSV3BpSW94OFdKeXZDRVZ6ZVkzN29lTi9ZUU9KOVAyMnR6TkNmNXhkK2ZJYzYwb2VqQVpFdnZtTTlZZVIKWDkxN3c3QXl1UDRoVS9HRTlYWUN6emVIOW1BWTZhNDJMWE9SN1VYVXBKSDlYQ2JodW1zOElWQngvSkx4Vjk5UQpaL3ZZUE85cmdFelF5Q2thL2xiOXUvdHdPSjBDQXdFQUFhTkNNRUF3RGdZRFZSMFBBUUgvQkFRREFnS2tNQThHCkExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRkRSRFNZT1l4cE40RDVEWndvWHJ1NWJjdVFFak1BMEcKQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUE4L1ZiVnhNcWk5cWszSGVwMTlmc3ZKbWdoT0h3NW00NGVGQ2dmOEFLbgp3ZE85NGdRalV0VDJZb0pGVGNRQVJtTGsvSk53VVd2ZlFlSUQvRjQ5eVRCRFpsbDRxZFBlSUVsUWZQd3BXL3dtCnhTL2x5Z2pBM1d1ckQzdlQrOFRUUE9yenowYTB0Y1pkcWhsTE5uMVhuWlpsOExrUXJKQUlWdjdiY1ZNVVMvNHEKZTVaZ0wrN0xnRWpRT1JOQ2VvMytwYTlSekV6dytHK3RFblpLcThTQ1kzd1lVN0VtQXFCOHVnL3V4dmk1Y0VNaQpTMTZWZ3FNWWNpeTNxWjhXWEozc2FIMFZNcm9OZnY1WW95dmlGbWFxOVBaNW0xajNSTEtFNUN3WmNoaTl3K0JMCjZjdXdYaWJhUm4waWFLQ1Z1M1RCcThNOVdpQnkxM1RWT1hiRHlveEU3VCtaCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+      service:
+        name: kyverno-svc
+        namespace: kyverno
+        path: /exceptionvalidate
+        port: 443
+    failurePolicy: Fail
+    matchPolicy: Equivalent
+    name: kyverno-svc.kyverno.svc
+    namespaceSelector: {}
+    objectSelector: {}
+    rules:
+    - apiGroups:
+      - kyverno.io
+      apiVersions:
+      - v2alpha1
+      - v2beta1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - policyexceptions
+      scope: '*'
+    sideEffects: None
+    timeoutSeconds: 10
+- apiVersion: admissionregistration.k8s.io/v1
+  kind: ValidatingWebhookConfiguration
+  metadata:
+    annotations:
+      admissions.enforcer/disabled: "true"
+    creationTimestamp: "2025-07-22T16:20:13Z"
+    generation: 1
+    labels:
+      webhook.kyverno.io/managed-by: kyverno
+    name: kyverno-global-context-validating-webhook-cfg
+    resourceVersion: "34578"
+    uid: b10333a0-f278-47c4-899f-b6699a286258
+  webhooks:
+  - admissionReviewVersions:
+    - v1
+    clientConfig:
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM3VENDQWRXZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFZTVJZd0ZBWURWUVFEREEwcUxtdDUKZG1WeWJtOHVjM1pqTUI0WERUSTFNRGN5TWpFMU1qQXhNMW9YRFRJMk1EY3lNakUyTWpBeE0xb3dHREVXTUJRRwpBMVVFQXd3TktpNXJlWFpsY201dkxuTjJZekNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DCmdnRUJBT1NTaU5EZ2NHdFB0STNvS2tlTys5SXh4RGVZYWNRWGkySVhMNHpKWi9Gc2E5QVdxZHlZb2pBWTJmMXYKQ2g2TDZXN3pTNStqdUtJajNxUkxkdkhwWk9WaHNUV1pNbHR5V0c0QjVUNzV3WXdQSHlyaUl6R2JkK05ncUR1bAo0STZKeTJ1YlhvWmlOdmFCNVpKTzhsSk9lSzh0eS9iSkkzbGExbWZsN1VlWFNGN0ZMZ2VSV3hWUExudjZ6bTA3CkZiZnFSV3BpSW94OFdKeXZDRVZ6ZVkzN29lTi9ZUU9KOVAyMnR6TkNmNXhkK2ZJYzYwb2VqQVpFdnZtTTlZZVIKWDkxN3c3QXl1UDRoVS9HRTlYWUN6emVIOW1BWTZhNDJMWE9SN1VYVXBKSDlYQ2JodW1zOElWQngvSkx4Vjk5UQpaL3ZZUE85cmdFelF5Q2thL2xiOXUvdHdPSjBDQXdFQUFhTkNNRUF3RGdZRFZSMFBBUUgvQkFRREFnS2tNQThHCkExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRkRSRFNZT1l4cE40RDVEWndvWHJ1NWJjdVFFak1BMEcKQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUE4L1ZiVnhNcWk5cWszSGVwMTlmc3ZKbWdoT0h3NW00NGVGQ2dmOEFLbgp3ZE85NGdRalV0VDJZb0pGVGNRQVJtTGsvSk53VVd2ZlFlSUQvRjQ5eVRCRFpsbDRxZFBlSUVsUWZQd3BXL3dtCnhTL2x5Z2pBM1d1ckQzdlQrOFRUUE9yenowYTB0Y1pkcWhsTE5uMVhuWlpsOExrUXJKQUlWdjdiY1ZNVVMvNHEKZTVaZ0wrN0xnRWpRT1JOQ2VvMytwYTlSekV6dytHK3RFblpLcThTQ1kzd1lVN0VtQXFCOHVnL3V4dmk1Y0VNaQpTMTZWZ3FNWWNpeTNxWjhXWEozc2FIMFZNcm9OZnY1WW95dmlGbWFxOVBaNW0xajNSTEtFNUN3WmNoaTl3K0JMCjZjdXdYaWJhUm4waWFLQ1Z1M1RCcThNOVdpQnkxM1RWT1hiRHlveEU3VCtaCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+      service:
+        name: kyverno-svc
+        namespace: kyverno
+        path: /globalcontextvalidate
+        port: 443
+    failurePolicy: Fail
+    matchPolicy: Equivalent
+    name: kyverno-svc.kyverno.svc
+    namespaceSelector: {}
+    objectSelector: {}
+    rules:
+    - apiGroups:
+      - kyverno.io
+      apiVersions:
+      - v2alpha1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - globalcontextentries
+      scope: '*'
+    sideEffects: None
+    timeoutSeconds: 10
+- apiVersion: admissionregistration.k8s.io/v1
+  kind: ValidatingWebhookConfiguration
+  metadata:
+    annotations:
+      admissions.enforcer/disabled: "true"
+    creationTimestamp: "2025-07-22T16:20:13Z"
+    generation: 3
+    labels:
+      webhook.kyverno.io/managed-by: kyverno
+    name: kyverno-policy-validating-webhook-cfg
+    resourceVersion: "630494"
+    uid: 44e1df5b-9024-44f7-a1a7-209f06e849df
+  webhooks:
+  - admissionReviewVersions:
+    - v1
+    clientConfig:
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM3VENDQWRXZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFZTVJZd0ZBWURWUVFEREEwcUxtdDUKZG1WeWJtOHVjM1pqTUI0WERUSTFNRGN5TWpFMU1qQXhNMW9YRFRJMk1EY3lNakUyTWpBeE0xb3dHREVXTUJRRwpBMVVFQXd3TktpNXJlWFpsY201dkxuTjJZekNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DCmdnRUJBT1NTaU5EZ2NHdFB0STNvS2tlTys5SXh4RGVZYWNRWGkySVhMNHpKWi9Gc2E5QVdxZHlZb2pBWTJmMXYKQ2g2TDZXN3pTNStqdUtJajNxUkxkdkhwWk9WaHNUV1pNbHR5V0c0QjVUNzV3WXdQSHlyaUl6R2JkK05ncUR1bAo0STZKeTJ1YlhvWmlOdmFCNVpKTzhsSk9lSzh0eS9iSkkzbGExbWZsN1VlWFNGN0ZMZ2VSV3hWUExudjZ6bTA3CkZiZnFSV3BpSW94OFdKeXZDRVZ6ZVkzN29lTi9ZUU9KOVAyMnR6TkNmNXhkK2ZJYzYwb2VqQVpFdnZtTTlZZVIKWDkxN3c3QXl1UDRoVS9HRTlYWUN6emVIOW1BWTZhNDJMWE9SN1VYVXBKSDlYQ2JodW1zOElWQngvSkx4Vjk5UQpaL3ZZUE85cmdFelF5Q2thL2xiOXUvdHdPSjBDQXdFQUFhTkNNRUF3RGdZRFZSMFBBUUgvQkFRREFnS2tNQThHCkExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRkRSRFNZT1l4cE40RDVEWndvWHJ1NWJjdVFFak1BMEcKQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUE4L1ZiVnhNcWk5cWszSGVwMTlmc3ZKbWdoT0h3NW00NGVGQ2dmOEFLbgp3ZE85NGdRalV0VDJZb0pGVGNRQVJtTGsvSk53VVd2ZlFlSUQvRjQ5eVRCRFpsbDRxZFBlSUVsUWZQd3BXL3dtCnhTL2x5Z2pBM1d1ckQzdlQrOFRUUE9yenowYTB0Y1pkcWhsTE5uMVhuWlpsOExrUXJKQUlWdjdiY1ZNVVMvNHEKZTVaZ0wrN0xnRWpRT1JOQ2VvMytwYTlSekV6dytHK3RFblpLcThTQ1kzd1lVN0VtQXFCOHVnL3V4dmk1Y0VNaQpTMTZWZ3FNWWNpeTNxWjhXWEozc2FIMFZNcm9OZnY1WW95dmlGbWFxOVBaNW0xajNSTEtFNUN3WmNoaTl3K0JMCjZjdXdYaWJhUm4waWFLQ1Z1M1RCcThNOVdpQnkxM1RWT1hiRHlveEU3VCtaCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+      service:
+        name: kyverno-svc
+        namespace: kyverno
+        path: /policyvalidate
+        port: 443
+    failurePolicy: Fail
+    matchPolicy: Equivalent
+    name: validate-policy.kyverno.svc
+    namespaceSelector: {}
+    objectSelector: {}
+    rules:
+    - apiGroups:
+      - kyverno.io
+      apiVersions:
+      - v1
+      - v2beta1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - clusterpolicies
+      - policies
+      scope: '*'
+    - apiGroups:
+      - policies.kyverno.io
+      apiVersions:
+      - v1alpha1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - validatingpolicies
+      scope: '*'
+    - apiGroups:
+      - policies.kyverno.io
+      apiVersions:
+      - v1alpha1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - imagevalidatingpolicies
+      scope: '*'
+    sideEffects: None
+    timeoutSeconds: 10
+- apiVersion: admissionregistration.k8s.io/v1
+  kind: ValidatingWebhookConfiguration
+  metadata:
+    annotations:
+      admissions.enforcer/disabled: "true"
+    creationTimestamp: "2025-07-22T16:20:13Z"
+    generation: 85
+    labels:
+      webhook.kyverno.io/managed-by: kyverno
+    name: kyverno-resource-validating-webhook-cfg
+    resourceVersion: "630506"
+    uid: 749604e1-f6f5-4dc5-9f1b-c80073bb5d0f
+- apiVersion: admissionregistration.k8s.io/v1
+  kind: ValidatingWebhookConfiguration
+  metadata:
+    annotations:
+      admissions.enforcer/disabled: "true"
+    creationTimestamp: "2025-07-22T16:19:17Z"
+    generation: 1
+    labels:
+      webhook.kyverno.io/managed-by: kyverno
+    name: kyverno-ttl-validating-webhook-cfg
+    resourceVersion: "34390"
+    uid: 9b6e2431-1e90-42ce-9f7e-1c494cd2a6dd
+  webhooks:
+  - admissionReviewVersions:
+    - v1
+    clientConfig:
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM3VENDQWRXZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFZTVJZd0ZBWURWUVFEREEwcUxtdDUKZG1WeWJtOHVjM1pqTUI0WERUSTFNRGN5TWpFMU1Ua3hOMW9YRFRJMk1EY3lNakUyTVRreE4xb3dHREVXTUJRRwpBMVVFQXd3TktpNXJlWFpsY201dkxuTjJZekNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DCmdnRUJBTGFsZzVNcDR0QmlNamc1b0hRb2NSUEVrdStCZ21kUjRNcEE4MEVYRXdsZWFUWTdEdkZyYnh6SjZZNEQKcGZwYUVySVFqTkpzQllzSkFOOTNlNjZmajZ4V0V3QjhDc0J2WWxVQTVqdkQ2STd6ZDhCZVFVTUR3SC9XWmVXeQp3aHNXeGJaeWREQzV0eXptRWNOL0g5OFhPZUFlN0NPZ3RtRS9nY3p1OFY0aWJndWhsbGhCS0IvRHlvcWNXbkF0Ck1VMjRWNm1uRlFuWFFBMFFpeXZSNnZJSHNGS0ZGV3BOR1lCQW9UTk55VGk5SlFoSHAra1RpZG9lTWZVYnVOVnQKNEp6YTNOWVIyYkJJcDd4TXRCdGJlNUtCamJTS0ZBZlBiUFFaUFJVallYOW9zM3RReE5LdG5QVXNQL0RqVk53cQp6dHZxc3p0bUFYN1RKS0gvTGlMakFHMFUrRzhDQXdFQUFhTkNNRUF3RGdZRFZSMFBBUUgvQkFRREFnS2tNQThHCkExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRkpqU25ZTW9QV3dVaGpheHZORXdTNXVoQUxlaE1BMEcKQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUJHaTUzaUtnQ0tIc3JrSVF5eGY3MUJBaGk5dGFkc1NnbjBVMFY1NkMvbgo2bE41ZGxrbkt2RkVzTkhuN2wyVGNrUjdsY3RKS1lTSUo4QTgzQmpKdE8yZW5BU0dCN0NHa0lmK1hLUkZvalVKCnRDY3Y5L2FBMGxDTmE2czdPWSt0djBCUUpJWWl4MzhqNy9qVXhtcE56dysvYy9lMCtCS1JjNEJBdEd6K0xmRWUKMFREN2cvbUpxVGJOcUdTLzQ1UG9FTmx4SStpVWEzMFhBbFRRQUdCVStsUFRhbVpwUHRycjdEdVh4OXYrdHVPdQpZWFhFbGQwb2NzQ2U0SXNBV1dsbTdTVzFWODZUcmorMVE0ZFhrR3N1cFF3UFROVVJqUzZYVXB1ZEJpU2djTW9aClY4THA2bjg3SVNTY1BOMzB3REJmZ0xhcWNMVnRqVnd0Q2JnRW1iSFlyWlk5Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+      service:
+        name: kyverno-cleanup-controller
+        namespace: kyverno
+        path: /verifyttl
+        port: 443
+    failurePolicy: Ignore
+    matchPolicy: Equivalent
+    name: kyverno-cleanup-controller.kyverno.svc
+    namespaceSelector: {}
+    objectSelector:
+      matchExpressions:
+      - key: cleanup.kyverno.io/ttl
+        operator: Exists
+    rules:
+    - apiGroups:
+      - '*'
+      apiVersions:
+      - '*'
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - '*'
+      scope: '*'
+    sideEffects: None
+    timeoutSeconds: 10
+- apiVersion: admissionregistration.k8s.io/v1
+  kind: ValidatingWebhookConfiguration
+  metadata:
+    annotations:
+      cert-manager.io/inject-ca-from: opentelemetry-operator-system/opentelemetry-operator-serving-cert
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"admissionregistration.k8s.io/v1","kind":"ValidatingWebhookConfiguration","metadata":{"annotations":{"cert-manager.io/inject-ca-from":"opentelemetry-operator-system/opentelemetry-operator-serving-cert"},"labels":{"app.kubernetes.io/name":"opentelemetry-operator"},"name":"opentelemetry-operator-validating-webhook-configuration"},"webhooks":[{"admissionReviewVersions":["v1"],"clientConfig":{"service":{"name":"opentelemetry-operator-webhook-service","namespace":"opentelemetry-operator-system","path":"/validate-opentelemetry-io-v1beta1-opentelemetrycollector"}},"failurePolicy":"Fail","name":"vopentelemetrycollectorcreateupdatebeta.kb.io","rules":[{"apiGroups":["opentelemetry.io"],"apiVersions":["v1beta1"],"operations":["CREATE","UPDATE"],"resources":["opentelemetrycollectors"]}],"sideEffects":"None"},{"admissionReviewVersions":["v1"],"clientConfig":{"service":{"name":"opentelemetry-operator-webhook-service","namespace":"opentelemetry-operator-system","path":"/validate-opentelemetry-io-v1beta1-opentelemetrycollector"}},"failurePolicy":"Ignore","name":"vopentelemetrycollectordeletebeta.kb.io","rules":[{"apiGroups":["opentelemetry.io"],"apiVersions":["v1beta1"],"operations":["DELETE"],"resources":["opentelemetrycollectors"]}],"sideEffects":"None"},{"admissionReviewVersions":["v1"],"clientConfig":{"service":{"name":"opentelemetry-operator-webhook-service","namespace":"opentelemetry-operator-system","path":"/validate-opentelemetry-io-v1alpha1-instrumentation"}},"failurePolicy":"Fail","name":"vinstrumentationcreateupdate.kb.io","rules":[{"apiGroups":["opentelemetry.io"],"apiVersions":["v1alpha1"],"operations":["CREATE","UPDATE"],"resources":["instrumentations"]}],"sideEffects":"None"},{"admissionReviewVersions":["v1"],"clientConfig":{"service":{"name":"opentelemetry-operator-webhook-service","namespace":"opentelemetry-operator-system","path":"/validate-opentelemetry-io-v1alpha1-instrumentation"}},"failurePolicy":"Ignore","name":"vinstrumentationdelete.kb.io","rules":[{"apiGroups":["opentelemetry.io"],"apiVersions":["v1alpha1"],"operations":["DELETE"],"resources":["instrumentations"]}],"sideEffects":"None"},{"admissionReviewVersions":["v1"],"clientConfig":{"service":{"name":"opentelemetry-operator-webhook-service","namespace":"opentelemetry-operator-system","path":"/validate-opentelemetry-io-v1alpha1-opampbridge"}},"failurePolicy":"Fail","name":"vopampbridgecreateupdate.kb.io","rules":[{"apiGroups":["opentelemetry.io"],"apiVersions":["v1alpha1"],"operations":["CREATE","UPDATE"],"resources":["opampbridges"]}],"sideEffects":"None"},{"admissionReviewVersions":["v1"],"clientConfig":{"service":{"name":"opentelemetry-operator-webhook-service","namespace":"opentelemetry-operator-system","path":"/validate-opentelemetry-io-v1alpha1-opampbridge"}},"failurePolicy":"Ignore","name":"vopampbridgedelete.kb.io","rules":[{"apiGroups":["opentelemetry.io"],"apiVersions":["v1alpha1"],"operations":["DELETE"],"resources":["opampbridges"]}],"sideEffects":"None"},{"admissionReviewVersions":["v1"],"clientConfig":{"service":{"name":"opentelemetry-operator-webhook-service","namespace":"opentelemetry-operator-system","path":"/validate-opentelemetry-io-v1beta1-targetallocator"}},"failurePolicy":"Fail","name":"vtargetallocatorcreateupdatebeta.kb.io","rules":[{"apiGroups":["opentelemetry.io"],"apiVersions":["v1beta1"],"operations":["CREATE","UPDATE"],"resources":["targetallocators"]}],"sideEffects":"None"},{"admissionReviewVersions":["v1"],"clientConfig":{"service":{"name":"opentelemetry-operator-webhook-service","namespace":"opentelemetry-operator-system","path":"/validate-opentelemetry-io-v1beta1-targetallocator"}},"failurePolicy":"Ignore","name":"vtargetallocatordeletebeta.kb.io","rules":[{"apiGroups":["opentelemetry.io"],"apiVersions":["v1beta1"],"operations":["DELETE"],"resources":["targetallocators"]}],"sideEffects":"None"}]}
+    creationTimestamp: "2025-07-26T17:26:33Z"
+    generation: 2
+    labels:
+      app.kubernetes.io/name: opentelemetry-operator
+    name: opentelemetry-operator-validating-webhook-configuration
+    resourceVersion: "311741"
+    uid: 88269599-11c1-4302-b615-50fb2be7806d
+  webhooks:
+  - admissionReviewVersions:
+    - v1
+    clientConfig:
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURuakNDQW9hZ0F3SUJBZ0lRYTA5SEVYQ3dudW5weWEzWTd4MmtNVEFOQmdrcWhraUc5dzBCQVFzRkFEQWgKTVI4d0hRWURWUVFMRXhadmNHVnVkR1ZzWlcxbGRISjVMVzl3WlhKaGRHOXlNQjRYRFRJMU1EY3lOakUzTWpZegpObG9YRFRJMU1UQXlOREUzTWpZek5sb3dJVEVmTUIwR0ExVUVDeE1XYjNCbGJuUmxiR1Z0WlhSeWVTMXZjR1Z5CllYUnZjakNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFNSUFNRGVURXF6cHRXUS8KVS9iUVcyWXM5cWVNWDJTQXAyZ0VVTm94TkFXVVVKSkhmTitoMTBYUTZKdWsyTHFWeUVFMGE1Skh0M21VbnhqTgpIcEhUODJLWXRUYmpWREVYRVZZdXZiNmtaMHNLRUsyRGhIZXMrUlVBSVJMWTNoNFIzWGkzYUdaMkNZTDBMOCtOCjdJUjdXK3IwUS8yYTh1blVQYnVnUkx0UVlxRUtEb0UvZlpQMUs2NjUwQXduQXgyYmM1dDVNMmhmSzQrSUkwTEEKajJaVVg2SEVweVhlVzArNkR6enhjanRmZmR2N1FLS1lyUmROK1VJVkwxKzNBZHFBcW1CN0NlRlRWcUJseGVhcApTUE5CQVYxTW9zVy96RnpjN3B5b3l1TkdjejJtdXI5ekZ5UGwvbVBpTHRvWjJvajJvYmtGVzg2ZTEvNU1KNHVzCjliQ3dOcEVDQXdFQUFhT0IwVENCempBT0JnTlZIUThCQWY4RUJBTUNCYUF3REFZRFZSMFRBUUgvQkFJd0FEQ0IKclFZRFZSMFJCSUdsTUlHaWdraHZjR1Z1ZEdWc1pXMWxkSEo1TFc5d1pYSmhkRzl5TFhkbFltaHZiMnN0YzJWeQpkbWxqWlM1dmNHVnVkR1ZzWlcxbGRISjVMVzl3WlhKaGRHOXlMWE41YzNSbGJTNXpkbU9DVm05d1pXNTBaV3hsCmJXVjBjbmt0YjNCbGNtRjBiM0l0ZDJWaWFHOXZheTF6WlhKMmFXTmxMbTl3Wlc1MFpXeGxiV1YwY25rdGIzQmwKY21GMGIzSXRjM2x6ZEdWdExuTjJZeTVqYkhWemRHVnlMbXh2WTJGc01BMEdDU3FHU0liM0RRRUJDd1VBQTRJQgpBUUFIRUQzNFNhRXRvTGhRbHkrczY1ZkZsazZFQURMWGFuMXVkTUpxM2gyYkY4R2o2ZkswOE14TUUxRkNvVEN3CmRvSVdKbVo5cEMxQ3RLZmVScENnN1R2ZkFYdUovcmlGS2FOYUNhRnZzTkJhVkNVdEk1WjcyWFRxNUppTUg1RFcKVXlSV0paZkZvVFhIQitBVENnU2xzSHJpSUIrY2pBZ2Z4MHpyR1o3QkRGRWNPWC9RZVBscGJjand6NndlV0wvdgpad29QK3NDZVhvUGFkcEdBTmUyMFRKTXgzZXMvejJpa2xQVzFNVzU2NlRVZ0FjYWFpTUhlL01EY1F4Z0h6R0lvCk1RVW9heEYyYy9qOUJyNGlFMndmU1hpN0h2RldmL0FyOUFZQXNxRHhDRFdkZkdlLzlSWjlobDZuekJrdFozQUgKcjhCVUxtU0dvejNqdXNqYTFxc3lkd2pqCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+      service:
+        name: opentelemetry-operator-webhook-service
+        namespace: opentelemetry-operator-system
+        path: /validate-opentelemetry-io-v1beta1-opentelemetrycollector
+        port: 443
+    failurePolicy: Fail
+    matchPolicy: Equivalent
+    name: vopentelemetrycollectorcreateupdatebeta.kb.io
+    namespaceSelector: {}
+    objectSelector: {}
+    rules:
+    - apiGroups:
+      - opentelemetry.io
+      apiVersions:
+      - v1beta1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - opentelemetrycollectors
+      scope: '*'
+    sideEffects: None
+    timeoutSeconds: 10
+  - admissionReviewVersions:
+    - v1
+    clientConfig:
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURuakNDQW9hZ0F3SUJBZ0lRYTA5SEVYQ3dudW5weWEzWTd4MmtNVEFOQmdrcWhraUc5dzBCQVFzRkFEQWgKTVI4d0hRWURWUVFMRXhadmNHVnVkR1ZzWlcxbGRISjVMVzl3WlhKaGRHOXlNQjRYRFRJMU1EY3lOakUzTWpZegpObG9YRFRJMU1UQXlOREUzTWpZek5sb3dJVEVmTUIwR0ExVUVDeE1XYjNCbGJuUmxiR1Z0WlhSeWVTMXZjR1Z5CllYUnZjakNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFNSUFNRGVURXF6cHRXUS8KVS9iUVcyWXM5cWVNWDJTQXAyZ0VVTm94TkFXVVVKSkhmTitoMTBYUTZKdWsyTHFWeUVFMGE1Skh0M21VbnhqTgpIcEhUODJLWXRUYmpWREVYRVZZdXZiNmtaMHNLRUsyRGhIZXMrUlVBSVJMWTNoNFIzWGkzYUdaMkNZTDBMOCtOCjdJUjdXK3IwUS8yYTh1blVQYnVnUkx0UVlxRUtEb0UvZlpQMUs2NjUwQXduQXgyYmM1dDVNMmhmSzQrSUkwTEEKajJaVVg2SEVweVhlVzArNkR6enhjanRmZmR2N1FLS1lyUmROK1VJVkwxKzNBZHFBcW1CN0NlRlRWcUJseGVhcApTUE5CQVYxTW9zVy96RnpjN3B5b3l1TkdjejJtdXI5ekZ5UGwvbVBpTHRvWjJvajJvYmtGVzg2ZTEvNU1KNHVzCjliQ3dOcEVDQXdFQUFhT0IwVENCempBT0JnTlZIUThCQWY4RUJBTUNCYUF3REFZRFZSMFRBUUgvQkFJd0FEQ0IKclFZRFZSMFJCSUdsTUlHaWdraHZjR1Z1ZEdWc1pXMWxkSEo1TFc5d1pYSmhkRzl5TFhkbFltaHZiMnN0YzJWeQpkbWxqWlM1dmNHVnVkR1ZzWlcxbGRISjVMVzl3WlhKaGRHOXlMWE41YzNSbGJTNXpkbU9DVm05d1pXNTBaV3hsCmJXVjBjbmt0YjNCbGNtRjBiM0l0ZDJWaWFHOXZheTF6WlhKMmFXTmxMbTl3Wlc1MFpXeGxiV1YwY25rdGIzQmwKY21GMGIzSXRjM2x6ZEdWdExuTjJZeTVqYkhWemRHVnlMbXh2WTJGc01BMEdDU3FHU0liM0RRRUJDd1VBQTRJQgpBUUFIRUQzNFNhRXRvTGhRbHkrczY1ZkZsazZFQURMWGFuMXVkTUpxM2gyYkY4R2o2ZkswOE14TUUxRkNvVEN3CmRvSVdKbVo5cEMxQ3RLZmVScENnN1R2ZkFYdUovcmlGS2FOYUNhRnZzTkJhVkNVdEk1WjcyWFRxNUppTUg1RFcKVXlSV0paZkZvVFhIQitBVENnU2xzSHJpSUIrY2pBZ2Z4MHpyR1o3QkRGRWNPWC9RZVBscGJjand6NndlV0wvdgpad29QK3NDZVhvUGFkcEdBTmUyMFRKTXgzZXMvejJpa2xQVzFNVzU2NlRVZ0FjYWFpTUhlL01EY1F4Z0h6R0lvCk1RVW9heEYyYy9qOUJyNGlFMndmU1hpN0h2RldmL0FyOUFZQXNxRHhDRFdkZkdlLzlSWjlobDZuekJrdFozQUgKcjhCVUxtU0dvejNqdXNqYTFxc3lkd2pqCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+      service:
+        name: opentelemetry-operator-webhook-service
+        namespace: opentelemetry-operator-system
+        path: /validate-opentelemetry-io-v1beta1-opentelemetrycollector
+        port: 443
+    failurePolicy: Ignore
+    matchPolicy: Equivalent
+    name: vopentelemetrycollectordeletebeta.kb.io
+    namespaceSelector: {}
+    objectSelector: {}
+    rules:
+    - apiGroups:
+      - opentelemetry.io
+      apiVersions:
+      - v1beta1
+      operations:
+      - DELETE
+      resources:
+      - opentelemetrycollectors
+      scope: '*'
+    sideEffects: None
+    timeoutSeconds: 10
+  - admissionReviewVersions:
+    - v1
+    clientConfig:
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURuakNDQW9hZ0F3SUJBZ0lRYTA5SEVYQ3dudW5weWEzWTd4MmtNVEFOQmdrcWhraUc5dzBCQVFzRkFEQWgKTVI4d0hRWURWUVFMRXhadmNHVnVkR1ZzWlcxbGRISjVMVzl3WlhKaGRHOXlNQjRYRFRJMU1EY3lOakUzTWpZegpObG9YRFRJMU1UQXlOREUzTWpZek5sb3dJVEVmTUIwR0ExVUVDeE1XYjNCbGJuUmxiR1Z0WlhSeWVTMXZjR1Z5CllYUnZjakNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFNSUFNRGVURXF6cHRXUS8KVS9iUVcyWXM5cWVNWDJTQXAyZ0VVTm94TkFXVVVKSkhmTitoMTBYUTZKdWsyTHFWeUVFMGE1Skh0M21VbnhqTgpIcEhUODJLWXRUYmpWREVYRVZZdXZiNmtaMHNLRUsyRGhIZXMrUlVBSVJMWTNoNFIzWGkzYUdaMkNZTDBMOCtOCjdJUjdXK3IwUS8yYTh1blVQYnVnUkx0UVlxRUtEb0UvZlpQMUs2NjUwQXduQXgyYmM1dDVNMmhmSzQrSUkwTEEKajJaVVg2SEVweVhlVzArNkR6enhjanRmZmR2N1FLS1lyUmROK1VJVkwxKzNBZHFBcW1CN0NlRlRWcUJseGVhcApTUE5CQVYxTW9zVy96RnpjN3B5b3l1TkdjejJtdXI5ekZ5UGwvbVBpTHRvWjJvajJvYmtGVzg2ZTEvNU1KNHVzCjliQ3dOcEVDQXdFQUFhT0IwVENCempBT0JnTlZIUThCQWY4RUJBTUNCYUF3REFZRFZSMFRBUUgvQkFJd0FEQ0IKclFZRFZSMFJCSUdsTUlHaWdraHZjR1Z1ZEdWc1pXMWxkSEo1TFc5d1pYSmhkRzl5TFhkbFltaHZiMnN0YzJWeQpkbWxqWlM1dmNHVnVkR1ZzWlcxbGRISjVMVzl3WlhKaGRHOXlMWE41YzNSbGJTNXpkbU9DVm05d1pXNTBaV3hsCmJXVjBjbmt0YjNCbGNtRjBiM0l0ZDJWaWFHOXZheTF6WlhKMmFXTmxMbTl3Wlc1MFpXeGxiV1YwY25rdGIzQmwKY21GMGIzSXRjM2x6ZEdWdExuTjJZeTVqYkhWemRHVnlMbXh2WTJGc01BMEdDU3FHU0liM0RRRUJDd1VBQTRJQgpBUUFIRUQzNFNhRXRvTGhRbHkrczY1ZkZsazZFQURMWGFuMXVkTUpxM2gyYkY4R2o2ZkswOE14TUUxRkNvVEN3CmRvSVdKbVo5cEMxQ3RLZmVScENnN1R2ZkFYdUovcmlGS2FOYUNhRnZzTkJhVkNVdEk1WjcyWFRxNUppTUg1RFcKVXlSV0paZkZvVFhIQitBVENnU2xzSHJpSUIrY2pBZ2Z4MHpyR1o3QkRGRWNPWC9RZVBscGJjand6NndlV0wvdgpad29QK3NDZVhvUGFkcEdBTmUyMFRKTXgzZXMvejJpa2xQVzFNVzU2NlRVZ0FjYWFpTUhlL01EY1F4Z0h6R0lvCk1RVW9heEYyYy9qOUJyNGlFMndmU1hpN0h2RldmL0FyOUFZQXNxRHhDRFdkZkdlLzlSWjlobDZuekJrdFozQUgKcjhCVUxtU0dvejNqdXNqYTFxc3lkd2pqCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+      service:
+        name: opentelemetry-operator-webhook-service
+        namespace: opentelemetry-operator-system
+        path: /validate-opentelemetry-io-v1alpha1-instrumentation
+        port: 443
+    failurePolicy: Fail
+    matchPolicy: Equivalent
+    name: vinstrumentationcreateupdate.kb.io
+    namespaceSelector: {}
+    objectSelector: {}
+    rules:
+    - apiGroups:
+      - opentelemetry.io
+      apiVersions:
+      - v1alpha1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - instrumentations
+      scope: '*'
+    sideEffects: None
+    timeoutSeconds: 10
+  - admissionReviewVersions:
+    - v1
+    clientConfig:
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURuakNDQW9hZ0F3SUJBZ0lRYTA5SEVYQ3dudW5weWEzWTd4MmtNVEFOQmdrcWhraUc5dzBCQVFzRkFEQWgKTVI4d0hRWURWUVFMRXhadmNHVnVkR1ZzWlcxbGRISjVMVzl3WlhKaGRHOXlNQjRYRFRJMU1EY3lOakUzTWpZegpObG9YRFRJMU1UQXlOREUzTWpZek5sb3dJVEVmTUIwR0ExVUVDeE1XYjNCbGJuUmxiR1Z0WlhSeWVTMXZjR1Z5CllYUnZjakNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFNSUFNRGVURXF6cHRXUS8KVS9iUVcyWXM5cWVNWDJTQXAyZ0VVTm94TkFXVVVKSkhmTitoMTBYUTZKdWsyTHFWeUVFMGE1Skh0M21VbnhqTgpIcEhUODJLWXRUYmpWREVYRVZZdXZiNmtaMHNLRUsyRGhIZXMrUlVBSVJMWTNoNFIzWGkzYUdaMkNZTDBMOCtOCjdJUjdXK3IwUS8yYTh1blVQYnVnUkx0UVlxRUtEb0UvZlpQMUs2NjUwQXduQXgyYmM1dDVNMmhmSzQrSUkwTEEKajJaVVg2SEVweVhlVzArNkR6enhjanRmZmR2N1FLS1lyUmROK1VJVkwxKzNBZHFBcW1CN0NlRlRWcUJseGVhcApTUE5CQVYxTW9zVy96RnpjN3B5b3l1TkdjejJtdXI5ekZ5UGwvbVBpTHRvWjJvajJvYmtGVzg2ZTEvNU1KNHVzCjliQ3dOcEVDQXdFQUFhT0IwVENCempBT0JnTlZIUThCQWY4RUJBTUNCYUF3REFZRFZSMFRBUUgvQkFJd0FEQ0IKclFZRFZSMFJCSUdsTUlHaWdraHZjR1Z1ZEdWc1pXMWxkSEo1TFc5d1pYSmhkRzl5TFhkbFltaHZiMnN0YzJWeQpkbWxqWlM1dmNHVnVkR1ZzWlcxbGRISjVMVzl3WlhKaGRHOXlMWE41YzNSbGJTNXpkbU9DVm05d1pXNTBaV3hsCmJXVjBjbmt0YjNCbGNtRjBiM0l0ZDJWaWFHOXZheTF6WlhKMmFXTmxMbTl3Wlc1MFpXeGxiV1YwY25rdGIzQmwKY21GMGIzSXRjM2x6ZEdWdExuTjJZeTVqYkhWemRHVnlMbXh2WTJGc01BMEdDU3FHU0liM0RRRUJDd1VBQTRJQgpBUUFIRUQzNFNhRXRvTGhRbHkrczY1ZkZsazZFQURMWGFuMXVkTUpxM2gyYkY4R2o2ZkswOE14TUUxRkNvVEN3CmRvSVdKbVo5cEMxQ3RLZmVScENnN1R2ZkFYdUovcmlGS2FOYUNhRnZzTkJhVkNVdEk1WjcyWFRxNUppTUg1RFcKVXlSV0paZkZvVFhIQitBVENnU2xzSHJpSUIrY2pBZ2Z4MHpyR1o3QkRGRWNPWC9RZVBscGJjand6NndlV0wvdgpad29QK3NDZVhvUGFkcEdBTmUyMFRKTXgzZXMvejJpa2xQVzFNVzU2NlRVZ0FjYWFpTUhlL01EY1F4Z0h6R0lvCk1RVW9heEYyYy9qOUJyNGlFMndmU1hpN0h2RldmL0FyOUFZQXNxRHhDRFdkZkdlLzlSWjlobDZuekJrdFozQUgKcjhCVUxtU0dvejNqdXNqYTFxc3lkd2pqCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+      service:
+        name: opentelemetry-operator-webhook-service
+        namespace: opentelemetry-operator-system
+        path: /validate-opentelemetry-io-v1alpha1-instrumentation
+        port: 443
+    failurePolicy: Ignore
+    matchPolicy: Equivalent
+    name: vinstrumentationdelete.kb.io
+    namespaceSelector: {}
+    objectSelector: {}
+    rules:
+    - apiGroups:
+      - opentelemetry.io
+      apiVersions:
+      - v1alpha1
+      operations:
+      - DELETE
+      resources:
+      - instrumentations
+      scope: '*'
+    sideEffects: None
+    timeoutSeconds: 10
+  - admissionReviewVersions:
+    - v1
+    clientConfig:
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURuakNDQW9hZ0F3SUJBZ0lRYTA5SEVYQ3dudW5weWEzWTd4MmtNVEFOQmdrcWhraUc5dzBCQVFzRkFEQWgKTVI4d0hRWURWUVFMRXhadmNHVnVkR1ZzWlcxbGRISjVMVzl3WlhKaGRHOXlNQjRYRFRJMU1EY3lOakUzTWpZegpObG9YRFRJMU1UQXlOREUzTWpZek5sb3dJVEVmTUIwR0ExVUVDeE1XYjNCbGJuUmxiR1Z0WlhSeWVTMXZjR1Z5CllYUnZjakNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFNSUFNRGVURXF6cHRXUS8KVS9iUVcyWXM5cWVNWDJTQXAyZ0VVTm94TkFXVVVKSkhmTitoMTBYUTZKdWsyTHFWeUVFMGE1Skh0M21VbnhqTgpIcEhUODJLWXRUYmpWREVYRVZZdXZiNmtaMHNLRUsyRGhIZXMrUlVBSVJMWTNoNFIzWGkzYUdaMkNZTDBMOCtOCjdJUjdXK3IwUS8yYTh1blVQYnVnUkx0UVlxRUtEb0UvZlpQMUs2NjUwQXduQXgyYmM1dDVNMmhmSzQrSUkwTEEKajJaVVg2SEVweVhlVzArNkR6enhjanRmZmR2N1FLS1lyUmROK1VJVkwxKzNBZHFBcW1CN0NlRlRWcUJseGVhcApTUE5CQVYxTW9zVy96RnpjN3B5b3l1TkdjejJtdXI5ekZ5UGwvbVBpTHRvWjJvajJvYmtGVzg2ZTEvNU1KNHVzCjliQ3dOcEVDQXdFQUFhT0IwVENCempBT0JnTlZIUThCQWY4RUJBTUNCYUF3REFZRFZSMFRBUUgvQkFJd0FEQ0IKclFZRFZSMFJCSUdsTUlHaWdraHZjR1Z1ZEdWc1pXMWxkSEo1TFc5d1pYSmhkRzl5TFhkbFltaHZiMnN0YzJWeQpkbWxqWlM1dmNHVnVkR1ZzWlcxbGRISjVMVzl3WlhKaGRHOXlMWE41YzNSbGJTNXpkbU9DVm05d1pXNTBaV3hsCmJXVjBjbmt0YjNCbGNtRjBiM0l0ZDJWaWFHOXZheTF6WlhKMmFXTmxMbTl3Wlc1MFpXeGxiV1YwY25rdGIzQmwKY21GMGIzSXRjM2x6ZEdWdExuTjJZeTVqYkhWemRHVnlMbXh2WTJGc01BMEdDU3FHU0liM0RRRUJDd1VBQTRJQgpBUUFIRUQzNFNhRXRvTGhRbHkrczY1ZkZsazZFQURMWGFuMXVkTUpxM2gyYkY4R2o2ZkswOE14TUUxRkNvVEN3CmRvSVdKbVo5cEMxQ3RLZmVScENnN1R2ZkFYdUovcmlGS2FOYUNhRnZzTkJhVkNVdEk1WjcyWFRxNUppTUg1RFcKVXlSV0paZkZvVFhIQitBVENnU2xzSHJpSUIrY2pBZ2Z4MHpyR1o3QkRGRWNPWC9RZVBscGJjand6NndlV0wvdgpad29QK3NDZVhvUGFkcEdBTmUyMFRKTXgzZXMvejJpa2xQVzFNVzU2NlRVZ0FjYWFpTUhlL01EY1F4Z0h6R0lvCk1RVW9heEYyYy9qOUJyNGlFMndmU1hpN0h2RldmL0FyOUFZQXNxRHhDRFdkZkdlLzlSWjlobDZuekJrdFozQUgKcjhCVUxtU0dvejNqdXNqYTFxc3lkd2pqCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+      service:
+        name: opentelemetry-operator-webhook-service
+        namespace: opentelemetry-operator-system
+        path: /validate-opentelemetry-io-v1alpha1-opampbridge
+        port: 443
+    failurePolicy: Fail
+    matchPolicy: Equivalent
+    name: vopampbridgecreateupdate.kb.io
+    namespaceSelector: {}
+    objectSelector: {}
+    rules:
+    - apiGroups:
+      - opentelemetry.io
+      apiVersions:
+      - v1alpha1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - opampbridges
+      scope: '*'
+    sideEffects: None
+    timeoutSeconds: 10
+  - admissionReviewVersions:
+    - v1
+    clientConfig:
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURuakNDQW9hZ0F3SUJBZ0lRYTA5SEVYQ3dudW5weWEzWTd4MmtNVEFOQmdrcWhraUc5dzBCQVFzRkFEQWgKTVI4d0hRWURWUVFMRXhadmNHVnVkR1ZzWlcxbGRISjVMVzl3WlhKaGRHOXlNQjRYRFRJMU1EY3lOakUzTWpZegpObG9YRFRJMU1UQXlOREUzTWpZek5sb3dJVEVmTUIwR0ExVUVDeE1XYjNCbGJuUmxiR1Z0WlhSeWVTMXZjR1Z5CllYUnZjakNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFNSUFNRGVURXF6cHRXUS8KVS9iUVcyWXM5cWVNWDJTQXAyZ0VVTm94TkFXVVVKSkhmTitoMTBYUTZKdWsyTHFWeUVFMGE1Skh0M21VbnhqTgpIcEhUODJLWXRUYmpWREVYRVZZdXZiNmtaMHNLRUsyRGhIZXMrUlVBSVJMWTNoNFIzWGkzYUdaMkNZTDBMOCtOCjdJUjdXK3IwUS8yYTh1blVQYnVnUkx0UVlxRUtEb0UvZlpQMUs2NjUwQXduQXgyYmM1dDVNMmhmSzQrSUkwTEEKajJaVVg2SEVweVhlVzArNkR6enhjanRmZmR2N1FLS1lyUmROK1VJVkwxKzNBZHFBcW1CN0NlRlRWcUJseGVhcApTUE5CQVYxTW9zVy96RnpjN3B5b3l1TkdjejJtdXI5ekZ5UGwvbVBpTHRvWjJvajJvYmtGVzg2ZTEvNU1KNHVzCjliQ3dOcEVDQXdFQUFhT0IwVENCempBT0JnTlZIUThCQWY4RUJBTUNCYUF3REFZRFZSMFRBUUgvQkFJd0FEQ0IKclFZRFZSMFJCSUdsTUlHaWdraHZjR1Z1ZEdWc1pXMWxkSEo1TFc5d1pYSmhkRzl5TFhkbFltaHZiMnN0YzJWeQpkbWxqWlM1dmNHVnVkR1ZzWlcxbGRISjVMVzl3WlhKaGRHOXlMWE41YzNSbGJTNXpkbU9DVm05d1pXNTBaV3hsCmJXVjBjbmt0YjNCbGNtRjBiM0l0ZDJWaWFHOXZheTF6WlhKMmFXTmxMbTl3Wlc1MFpXeGxiV1YwY25rdGIzQmwKY21GMGIzSXRjM2x6ZEdWdExuTjJZeTVqYkhWemRHVnlMbXh2WTJGc01BMEdDU3FHU0liM0RRRUJDd1VBQTRJQgpBUUFIRUQzNFNhRXRvTGhRbHkrczY1ZkZsazZFQURMWGFuMXVkTUpxM2gyYkY4R2o2ZkswOE14TUUxRkNvVEN3CmRvSVdKbVo5cEMxQ3RLZmVScENnN1R2ZkFYdUovcmlGS2FOYUNhRnZzTkJhVkNVdEk1WjcyWFRxNUppTUg1RFcKVXlSV0paZkZvVFhIQitBVENnU2xzSHJpSUIrY2pBZ2Z4MHpyR1o3QkRGRWNPWC9RZVBscGJjand6NndlV0wvdgpad29QK3NDZVhvUGFkcEdBTmUyMFRKTXgzZXMvejJpa2xQVzFNVzU2NlRVZ0FjYWFpTUhlL01EY1F4Z0h6R0lvCk1RVW9heEYyYy9qOUJyNGlFMndmU1hpN0h2RldmL0FyOUFZQXNxRHhDRFdkZkdlLzlSWjlobDZuekJrdFozQUgKcjhCVUxtU0dvejNqdXNqYTFxc3lkd2pqCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+      service:
+        name: opentelemetry-operator-webhook-service
+        namespace: opentelemetry-operator-system
+        path: /validate-opentelemetry-io-v1alpha1-opampbridge
+        port: 443
+    failurePolicy: Ignore
+    matchPolicy: Equivalent
+    name: vopampbridgedelete.kb.io
+    namespaceSelector: {}
+    objectSelector: {}
+    rules:
+    - apiGroups:
+      - opentelemetry.io
+      apiVersions:
+      - v1alpha1
+      operations:
+      - DELETE
+      resources:
+      - opampbridges
+      scope: '*'
+    sideEffects: None
+    timeoutSeconds: 10
+  - admissionReviewVersions:
+    - v1
+    clientConfig:
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURuakNDQW9hZ0F3SUJBZ0lRYTA5SEVYQ3dudW5weWEzWTd4MmtNVEFOQmdrcWhraUc5dzBCQVFzRkFEQWgKTVI4d0hRWURWUVFMRXhadmNHVnVkR1ZzWlcxbGRISjVMVzl3WlhKaGRHOXlNQjRYRFRJMU1EY3lOakUzTWpZegpObG9YRFRJMU1UQXlOREUzTWpZek5sb3dJVEVmTUIwR0ExVUVDeE1XYjNCbGJuUmxiR1Z0WlhSeWVTMXZjR1Z5CllYUnZjakNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFNSUFNRGVURXF6cHRXUS8KVS9iUVcyWXM5cWVNWDJTQXAyZ0VVTm94TkFXVVVKSkhmTitoMTBYUTZKdWsyTHFWeUVFMGE1Skh0M21VbnhqTgpIcEhUODJLWXRUYmpWREVYRVZZdXZiNmtaMHNLRUsyRGhIZXMrUlVBSVJMWTNoNFIzWGkzYUdaMkNZTDBMOCtOCjdJUjdXK3IwUS8yYTh1blVQYnVnUkx0UVlxRUtEb0UvZlpQMUs2NjUwQXduQXgyYmM1dDVNMmhmSzQrSUkwTEEKajJaVVg2SEVweVhlVzArNkR6enhjanRmZmR2N1FLS1lyUmROK1VJVkwxKzNBZHFBcW1CN0NlRlRWcUJseGVhcApTUE5CQVYxTW9zVy96RnpjN3B5b3l1TkdjejJtdXI5ekZ5UGwvbVBpTHRvWjJvajJvYmtGVzg2ZTEvNU1KNHVzCjliQ3dOcEVDQXdFQUFhT0IwVENCempBT0JnTlZIUThCQWY4RUJBTUNCYUF3REFZRFZSMFRBUUgvQkFJd0FEQ0IKclFZRFZSMFJCSUdsTUlHaWdraHZjR1Z1ZEdWc1pXMWxkSEo1TFc5d1pYSmhkRzl5TFhkbFltaHZiMnN0YzJWeQpkbWxqWlM1dmNHVnVkR1ZzWlcxbGRISjVMVzl3WlhKaGRHOXlMWE41YzNSbGJTNXpkbU9DVm05d1pXNTBaV3hsCmJXVjBjbmt0YjNCbGNtRjBiM0l0ZDJWaWFHOXZheTF6WlhKMmFXTmxMbTl3Wlc1MFpXeGxiV1YwY25rdGIzQmwKY21GMGIzSXRjM2x6ZEdWdExuTjJZeTVqYkhWemRHVnlMbXh2WTJGc01BMEdDU3FHU0liM0RRRUJDd1VBQTRJQgpBUUFIRUQzNFNhRXRvTGhRbHkrczY1ZkZsazZFQURMWGFuMXVkTUpxM2gyYkY4R2o2ZkswOE14TUUxRkNvVEN3CmRvSVdKbVo5cEMxQ3RLZmVScENnN1R2ZkFYdUovcmlGS2FOYUNhRnZzTkJhVkNVdEk1WjcyWFRxNUppTUg1RFcKVXlSV0paZkZvVFhIQitBVENnU2xzSHJpSUIrY2pBZ2Z4MHpyR1o3QkRGRWNPWC9RZVBscGJjand6NndlV0wvdgpad29QK3NDZVhvUGFkcEdBTmUyMFRKTXgzZXMvejJpa2xQVzFNVzU2NlRVZ0FjYWFpTUhlL01EY1F4Z0h6R0lvCk1RVW9heEYyYy9qOUJyNGlFMndmU1hpN0h2RldmL0FyOUFZQXNxRHhDRFdkZkdlLzlSWjlobDZuekJrdFozQUgKcjhCVUxtU0dvejNqdXNqYTFxc3lkd2pqCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+      service:
+        name: opentelemetry-operator-webhook-service
+        namespace: opentelemetry-operator-system
+        path: /validate-opentelemetry-io-v1beta1-targetallocator
+        port: 443
+    failurePolicy: Fail
+    matchPolicy: Equivalent
+    name: vtargetallocatorcreateupdatebeta.kb.io
+    namespaceSelector: {}
+    objectSelector: {}
+    rules:
+    - apiGroups:
+      - opentelemetry.io
+      apiVersions:
+      - v1beta1
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - targetallocators
+      scope: '*'
+    sideEffects: None
+    timeoutSeconds: 10
+  - admissionReviewVersions:
+    - v1
+    clientConfig:
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURuakNDQW9hZ0F3SUJBZ0lRYTA5SEVYQ3dudW5weWEzWTd4MmtNVEFOQmdrcWhraUc5dzBCQVFzRkFEQWgKTVI4d0hRWURWUVFMRXhadmNHVnVkR1ZzWlcxbGRISjVMVzl3WlhKaGRHOXlNQjRYRFRJMU1EY3lOakUzTWpZegpObG9YRFRJMU1UQXlOREUzTWpZek5sb3dJVEVmTUIwR0ExVUVDeE1XYjNCbGJuUmxiR1Z0WlhSeWVTMXZjR1Z5CllYUnZjakNDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFNSUFNRGVURXF6cHRXUS8KVS9iUVcyWXM5cWVNWDJTQXAyZ0VVTm94TkFXVVVKSkhmTitoMTBYUTZKdWsyTHFWeUVFMGE1Skh0M21VbnhqTgpIcEhUODJLWXRUYmpWREVYRVZZdXZiNmtaMHNLRUsyRGhIZXMrUlVBSVJMWTNoNFIzWGkzYUdaMkNZTDBMOCtOCjdJUjdXK3IwUS8yYTh1blVQYnVnUkx0UVlxRUtEb0UvZlpQMUs2NjUwQXduQXgyYmM1dDVNMmhmSzQrSUkwTEEKajJaVVg2SEVweVhlVzArNkR6enhjanRmZmR2N1FLS1lyUmROK1VJVkwxKzNBZHFBcW1CN0NlRlRWcUJseGVhcApTUE5CQVYxTW9zVy96RnpjN3B5b3l1TkdjejJtdXI5ekZ5UGwvbVBpTHRvWjJvajJvYmtGVzg2ZTEvNU1KNHVzCjliQ3dOcEVDQXdFQUFhT0IwVENCempBT0JnTlZIUThCQWY4RUJBTUNCYUF3REFZRFZSMFRBUUgvQkFJd0FEQ0IKclFZRFZSMFJCSUdsTUlHaWdraHZjR1Z1ZEdWc1pXMWxkSEo1TFc5d1pYSmhkRzl5TFhkbFltaHZiMnN0YzJWeQpkbWxqWlM1dmNHVnVkR1ZzWlcxbGRISjVMVzl3WlhKaGRHOXlMWE41YzNSbGJTNXpkbU9DVm05d1pXNTBaV3hsCmJXVjBjbmt0YjNCbGNtRjBiM0l0ZDJWaWFHOXZheTF6WlhKMmFXTmxMbTl3Wlc1MFpXeGxiV1YwY25rdGIzQmwKY21GMGIzSXRjM2x6ZEdWdExuTjJZeTVqYkhWemRHVnlMbXh2WTJGc01BMEdDU3FHU0liM0RRRUJDd1VBQTRJQgpBUUFIRUQzNFNhRXRvTGhRbHkrczY1ZkZsazZFQURMWGFuMXVkTUpxM2gyYkY4R2o2ZkswOE14TUUxRkNvVEN3CmRvSVdKbVo5cEMxQ3RLZmVScENnN1R2ZkFYdUovcmlGS2FOYUNhRnZzTkJhVkNVdEk1WjcyWFRxNUppTUg1RFcKVXlSV0paZkZvVFhIQitBVENnU2xzSHJpSUIrY2pBZ2Z4MHpyR1o3QkRGRWNPWC9RZVBscGJjand6NndlV0wvdgpad29QK3NDZVhvUGFkcEdBTmUyMFRKTXgzZXMvejJpa2xQVzFNVzU2NlRVZ0FjYWFpTUhlL01EY1F4Z0h6R0lvCk1RVW9heEYyYy9qOUJyNGlFMndmU1hpN0h2RldmL0FyOUFZQXNxRHhDRFdkZkdlLzlSWjlobDZuekJrdFozQUgKcjhCVUxtU0dvejNqdXNqYTFxc3lkd2pqCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+      service:
+        name: opentelemetry-operator-webhook-service
+        namespace: opentelemetry-operator-system
+        path: /validate-opentelemetry-io-v1beta1-targetallocator
+        port: 443
+    failurePolicy: Ignore
+    matchPolicy: Equivalent
+    name: vtargetallocatordeletebeta.kb.io
+    namespaceSelector: {}
+    objectSelector: {}
+    rules:
+    - apiGroups:
+      - opentelemetry.io
+      apiVersions:
+      - v1beta1
+      operations:
+      - DELETE
+      resources:
+      - targetallocators
+      scope: '*'
+    sideEffects: None
+    timeoutSeconds: 10
+- apiVersion: admissionregistration.k8s.io/v1
+  kind: ValidatingWebhookConfiguration
+  metadata:
+    annotations:
+      meta.helm.sh/release-name: prom
+      meta.helm.sh/release-namespace: monitoring
+    creationTimestamp: "2025-07-22T17:47:46Z"
+    generation: 2
+    labels:
+      app: kube-prometheus-stack-admission
+      app.kubernetes.io/component: prometheus-operator-webhook
+      app.kubernetes.io/instance: prom
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/name: kube-prometheus-stack-prometheus-operator
+      app.kubernetes.io/part-of: kube-prometheus-stack
+      app.kubernetes.io/version: 75.13.0
+      chart: kube-prometheus-stack-75.13.0
+      heritage: Helm
+      release: prom
+    name: prom-kube-prometheus-stack-admission
+    resourceVersion: "465489"
+    uid: 0b524e18-57f4-4c55-835f-d15c3b4c7e01
+  webhooks:
+  - admissionReviewVersions:
+    - v1
+    - v1beta1
+    clientConfig:
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUJkVENDQVJ1Z0F3SUJBZ0lRVzYxQkFudDltZlY4STVwOTBsVnhHekFLQmdncWhrak9QUVFEQWpBUE1RMHcKQ3dZRFZRUUtFd1J1YVd3eE1DQVhEVEkxTURjeU1qRTNOREl6TkZvWUR6SXhNalV3TmpJNE1UYzBNak0wV2pBUApNUTB3Q3dZRFZRUUtFd1J1YVd3eE1Ga3dFd1lIS29aSXpqMENBUVlJS29aSXpqMERBUWNEUWdBRUY1WlljTjUwCmFrVEkyY2swYWNkRTZ1UTAyRTNYbWZpbk1XaWJjSUpqS1hhanRpMklsWVlRUnpxR3FNYUxaMGFkRDk1Q3I2MmsKTDFDcGs4bTNSTXBvZjZOWE1GVXdEZ1lEVlIwUEFRSC9CQVFEQWdJRU1CTUdBMVVkSlFRTU1Bb0dDQ3NHQVFVRgpCd01CTUE4R0ExVWRFd0VCL3dRRk1BTUJBZjh3SFFZRFZSME9CQllFRktYc2x0eElHREFBVmQrTzkyMi9uaEdpCmVjdStNQW9HQ0NxR1NNNDlCQU1DQTBnQU1FVUNJUUNYN0Jyd1hrVHk1eG41dXNvdlU1MXhZTFJvWjkzSzU0Uk8KQUhrbXp1V3N6d0lnWnk1SUZqWjRjUUMyVzUvZWZoSFhYY252L0ZhN0g3Z1BBMEQxdFYxRW9CRT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=
+      service:
+        name: prom-kube-prometheus-stack-operator
+        namespace: monitoring
+        path: /admission-prometheusrules/validate
+        port: 443
+    failurePolicy: Ignore
+    matchPolicy: Equivalent
+    name: prometheusrulemutate.monitoring.coreos.com
+    namespaceSelector: {}
+    objectSelector: {}
+    rules:
+    - apiGroups:
+      - monitoring.coreos.com
+      apiVersions:
+      - '*'
+      operations:
+      - CREATE
+      - UPDATE
+      resources:
+      - prometheusrules
+      scope: '*'
+    sideEffects: None
+    timeoutSeconds: 10
+kind: List
+metadata:
+  resourceVersion: ""

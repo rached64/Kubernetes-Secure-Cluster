@@ -1,0 +1,16 @@
+playbooks:
+- triggers:
+    - on_prometheus_alert:
+        alert_name: "PodWritingToBin"
+  actions:
+    - delete_pod: {}   # 🚨 Kill the malicious pod
+    - add_labels:
+        labels:
+          quarantine: "true"
+    - send_slack:      # Send notification with context
+        title: "🚨 Suspicious Pod Deleted"
+        message: |
+          Robusta auto-deleted pod writing to /bin
+          Namespace: {namespace}
+          Pod: {pod}
+          Alert: {alert_name}
