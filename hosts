@@ -1,0 +1,12 @@
+[master_nodes]
+master1  ansible_host=192.168.122.189
+master2  ansible_host=192.168.122.235
+master3  ansible_host=192.168.122.182
+
+[worker_nodes]
+worker1 ansible_host=192.168.122.197
+worker2 ansible_host=192.168.122.184
+
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3
+
