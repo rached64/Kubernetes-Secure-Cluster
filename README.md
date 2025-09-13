@@ -32,3 +32,5 @@ It combines monitoring, logging, threat detection, policy enforcement, and chaos
 - **Robusta** → Automated playbooks for response  
 - **Chaos Mesh** → Injects failures to validate resilience  
 - **Slack** → Central place for team alerts  
+
+<img width="1780" height="1053" alt="architecture" src="https://github.com/user-attachments/assets/dae1dc3b-ec15-4960-b81b-d164effb34dd" />
