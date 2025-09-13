@@ -41,10 +41,11 @@ Important Note: The playbook installs Kubernetes on Ubuntu 24.04. Before executi
     Review and modify all inventory variables and file paths for your specific environment
 
     Validate the playbook in a staging or development environment before applying to production systems
-    
-    All other configuration files use the .yaml extension and contain configurations for security tools like Falco and other cluster components. 
-    Additional files may include informational content and supplementary documentation.
-    
-Usage:
-  ansible-playbook -i inventory.ini kubernetes-setup.yml
+    Usage:
+    ansible-playbook -i inventory.ini kubernetes-setup.yml
+
+  
+All other configuration files use the .yaml extension and contain configurations for security tools like Falco and other cluster components. 
+Additional files may include informational content and supplementary documentation.    
+
 
